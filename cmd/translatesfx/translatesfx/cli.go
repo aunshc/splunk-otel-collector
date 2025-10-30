@@ -34,7 +34,7 @@ func CLI(args []string) {
 }
 
 func warningsToString(warnings []error) string {
-	if warnings == nil {
+	if len(warnings) == 0 {
 		return ""
 	}
 	out := "# The following issues were found while translating the Smart Agent config:\n"
