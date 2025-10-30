@@ -15,6 +15,7 @@
 package translatesfx
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -34,4 +35,14 @@ func TestTranslateConfig(t *testing.T) {
 	err = yaml.Unmarshal(expected, &expectedV)
 	require.NoError(t, err)
 	assert.Equal(t, expectedV, translatedV)
+}
+
+func TestWarningsToString(t *testing.T) {
+	assert.Empty(t, warningsToString(nil))
+	assert.Empty(t, warningsToString([]error{}))
+
+	warning := fmt.Errorf("example warning")
+	result := warningsToString([]error{warning})
+	assert.Contains(t, result, "The following issues were found")
+	assert.Contains(t, result, warning.Error())
 }
